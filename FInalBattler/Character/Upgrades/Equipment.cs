@@ -34,6 +34,7 @@
     {
         Health,
         Power,
-        Luck
+        Luck,
+        Mana
     }
 }

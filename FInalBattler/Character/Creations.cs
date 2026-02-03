@@ -7,6 +7,7 @@
         public int TotalHealth { get; set; }
         public int TotalPower { get; set; }
         public int TotalLuck { get; set; }
+        public int TotalMana { get; set; }
     }
 
     public enum CombatClass
