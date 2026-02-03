@@ -7,11 +7,12 @@ public class Program
     {
         Hero hero = new Hero();
 
-        FinalBattler.Character.Upgrades.Equipment equipment = new FinalBattler.Character.Upgrades.Equipment(name: "The Throngler", slot: FinalBattler.Character.Upgrades.EquipmentSlot.RightArm, statBoostType: FinalBattler.Character.Upgrades.StatBoostType.Power, boostValue: 10000);
-        hero.Equipment.Add(equipment);
+        hero.Equipment.Add(new FinalBattler.Character.Upgrades.Equipment(name: "The Throngler", slot: FinalBattler.Character.Upgrades.EquipmentSlot.RightArm, statBoostType: FinalBattler.Character.Upgrades.StatBoostType.Power, boostValue: 10000));
 
         hero.DisplayStats();
+        Console.WriteLine();
         hero.DisplayStats(true);
+        Console.WriteLine();
 
         hero.CombatClass = CombatClass.Warrior;
         hero.CurrentXP += 1000;
@@ -22,6 +23,7 @@ public class Program
         hero.LevelUp();
 
         hero.DisplayStats();
+        Console.WriteLine();
         hero.DisplayStats(true);
     }
 }
