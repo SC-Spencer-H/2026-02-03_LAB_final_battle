@@ -5,17 +5,17 @@ namespace FinalBattler.Character
 {
     public class Hero : Creations, IHero, IBattleActions
     {
-        private int Health { get; set; }
-        private int Power { get; set; }
-        private int Luck { get; set; }
-        private int Mana { get; set; }
-        private int CurrentXP { get; set; }
-        private int XPToNextLevel { get; set; }
-        private CombatClass CombatClass { get; set; }
-        private List<Item> Items { get; set; }
-        private List<Skill> Skills { get; set; }
-        private List<Spell> Spells { get; set; }
-        private List<Equipment> Equipment { get; set; }
+        public int Health { get; set; }
+        public int Power { get; set; }
+        public int Luck { get; set; }
+        public int Mana { get; set; }
+        public int CurrentXP { get; set; }
+        public int XPToNextLevel { get; set; }
+        public CombatClass CombatClass { get; set; }
+        public List<Item> Items { get; set; }
+        public List<Skill> Skills { get; set; }
+        public List<Spell> Spells { get; set; }
+        public List<Equipment> Equipment { get; set; }
 
         public Hero()
         {
@@ -24,7 +24,11 @@ namespace FinalBattler.Character
             Luck = 1;
             Mana = 1;
             CurrentXP = 0;
+            XPToNextLevel = 100;
+
             this.CombatClass = CombatClass.None;
+
+            CalculateTotals();
         }
 
         public void LevelUp()
@@ -56,8 +60,11 @@ namespace FinalBattler.Character
                         break;
                 }
 
+                CalculateTotals();
+
                 CurrentXP -= XPToNextLevel;
                 XPToNextLevel += 100;
+                Level++;
             }
         }
 
@@ -67,24 +74,33 @@ namespace FinalBattler.Character
             {
                 CalculateTotals();
 
+                Console.WriteLine("TOTAL STATS");
                 Console.WriteLine($"Health: {TotalHealth}");
                 Console.WriteLine($"Power: {TotalPower}");
                 Console.WriteLine($"Luck: {TotalLuck}");
                 Console.WriteLine($"Mana: {TotalMana}");
-                Console.WriteLine($"XP to level up: {XPToNextLevel - CurrentXP}");
+                Console.WriteLine($"Level: {Level}");
+                Console.WriteLine($"XP to next level: {XPToNextLevel - CurrentXP}");
             }
             else
             {
+                Console.WriteLine("STATS");
                 Console.WriteLine($"Health: {Health}");
                 Console.WriteLine($"Power: {Power}");
                 Console.WriteLine($"Luck: {Luck}");
                 Console.WriteLine($"Mana: {Mana}");
-                Console.WriteLine($"XP to level up: {XPToNextLevel - CurrentXP}");
+                Console.WriteLine($"Level: {Level}");
+                Console.WriteLine($"XP to next level: {XPToNextLevel - CurrentXP}");
             }
         }
 
         public void CalculateTotals() 
         {
+            TotalHealth = Health;
+            TotalPower = Power;
+            TotalLuck = Luck;
+            TotalMana = Mana;
+
             foreach (Equipment equipment in this.Equipment)
             {
                 switch (equipment.StatBoostType)
