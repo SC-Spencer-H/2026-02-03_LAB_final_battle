@@ -3,24 +3,22 @@ using FinalBattler.Interfaces;
 
 namespace FinalBattler.Character
 {
-    public class Hero : Creations, IHero
+    public class Hero : Creations, IHero, IBattleActions
     {
-        public int Health { get; set; }
-        public int Power { get; set; }
-        public int Luck { get; set; }
-        public int Mana { get; set; }
-        public int CurrentXP { get; set; }
-        public int XPToNextLevel { get; set; }
-        public CombatClass CombatClass { get; set; }
-        public List<Item> Items { get; set; }
-        public List<Skill> Skills { get; set; }
-        public List<Spell> Spells { get; set; }
-        public List<Equipment> Equipment { get; set; }
+        private int Health { get; set; }
+        private int Power { get; set; }
+        private int Luck { get; set; }
+        private int Mana { get; set; }
+        private int CurrentXP { get; set; }
+        private int XPToNextLevel { get; set; }
+        private CombatClass CombatClass { get; set; }
+        private List<Item> Items { get; set; }
+        private List<Skill> Skills { get; set; }
+        private List<Spell> Spells { get; set; }
+        private List<Equipment> Equipment { get; set; }
 
         public Hero()
         {
-            Name = "Unknown";
-            Level = 0;
             Health = 1;
             Power = 1;
             Luck = 1;
@@ -105,6 +103,33 @@ namespace FinalBattler.Character
                         break;
                 }
             }
+        }
+
+        public BattleActions ChooseCombatAction(int opponents, out int target)
+        {
+            target = Random.Shared.Next(opponents);
+            return (BattleActions)Random.Shared.Next(3);
+        }
+
+        public int GetCurrentHealth() => CurrentHealth;
+        public void TakeDamage()
+        {
+            CurrentHealth--;
+        }
+
+        public void BasicAttack()
+        {
+            Console.WriteLine($"{Name} attacks");
+        }
+
+        public void SpecialAttack()
+        {
+            Console.WriteLine($"{Name} attacks specially");
+        }
+
+        public void Defend()
+        {
+            Console.WriteLine($"{Name} raises their guard");
         }
     }
 }
