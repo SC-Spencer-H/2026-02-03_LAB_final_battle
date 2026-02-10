@@ -4,8 +4,11 @@ using System.Text;
 
 namespace FinalBattler.Interfaces
 {
-    public interface IBattleActions : IBattler
+    public interface IBattlable
     {
+        public string GetName();
+        public int GetCurrentHealth();
+        public void TakeDamage();
         public void BasicAttack();
         public void SpecialAttack();
         public void Defend();

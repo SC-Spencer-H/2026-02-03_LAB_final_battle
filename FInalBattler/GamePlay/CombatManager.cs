@@ -5,41 +5,56 @@ namespace FinalBattler.GamePlay
 {
     public class CombatManager
     {
-        private List<IBattleActions> Battlers = new List<IBattleActions>();
+        private List<IBattlable> Battlers = new List<IBattlable>();
 
-        public CombatManager(params IBattleActions[] battlers)
+        public CombatManager(params IBattlable[] battlers)
         {
-            foreach (IBattleActions battler in battlers)
+            foreach (IBattlable battler in battlers)
             {
                 Battlers.Add(battler);
             }
         }
 
-        public void NewBattle()
+        public void AddBattler(IBattlable battler)
         {
-            while (Battlers.Any(b => b.GetCurrentHealth() > 0))
+            Battlers.Add(battler);
+        }
+
+        public IBattlable NewBattle()
+        {
+            while (Battlers.Count > 1 && Battlers.Any(b => b.GetCurrentHealth() > 0))
             {
                 CombatTurn();
             }
+
+            return Battlers[0];
         }
 
-        public void CombatTurn()
+        private void CombatTurn()
         {
-            foreach (IBattleActions battler in Battlers)
+            foreach (IBattlable battler in Battlers)
             {
-                switch (battler.ChooseCombatAction(opponents: Battlers.Count - 1, out int target))
+                if (battler.GetCurrentHealth() > 0)
                 {
-                    case BattleActions.BasicAttack:
-                        battler.BasicAttack();
-                        Battlers[target].TakeDamage();
-                        break;
-                    case BattleActions.SpecialAttack:
-                        battler.SpecialAttack();
-                        Battlers[target].TakeDamage();
-                        break;
-                    case BattleActions.Defend:
-                        battler.Defend();
-                        break;
+                    switch (battler.ChooseCombatAction(opponents: Battlers.Count - 1, out int target))
+                    {
+                        case BattleActions.BasicAttack:
+                            battler.BasicAttack();
+                            Battlers[target].TakeDamage();
+                            break;
+                        case BattleActions.SpecialAttack:
+                            battler.SpecialAttack();
+                            Battlers[target].TakeDamage();
+                            break;
+                        case BattleActions.Defend:
+                            battler.Defend();
+                            break;
+                    }
+                }
+                else
+                {
+                    Battlers.Remove(battler);
+                    break;
                 }
             }
         }

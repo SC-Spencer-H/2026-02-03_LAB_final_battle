@@ -14,19 +14,11 @@
         {
             Name = "Unknown";
             Level = 0;
+            CurrentHealth = 10;
             TotalHealth = 10;
-            CurrentHealth = 1;
             TotalPower = 1;
             TotalLuck = 1;
             TotalMana = 1;
         }
-    }
-
-    public enum CombatClass
-    {
-        None,
-        Warrior,
-        Wizard,
-        Rogue
     }
 }

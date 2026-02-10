@@ -2,15 +2,17 @@
 
 namespace FinalBattler.Character
 {
-    public class Monster : Creations, IBattleActions
+    public class Monster : Creations, IBattlable
     {
+        public Monster(string name = "Monster")
+        {
+            Name = name;
+        }
         public BattleActions ChooseCombatAction(int opponents, out int target)
         {
             target = Random.Shared.Next(opponents);
             return (BattleActions)Random.Shared.Next(3);
         }
-
-        public int GetCurrentHealth() => CurrentHealth;
 
         public void TakeDamage()
         {
@@ -19,17 +21,21 @@ namespace FinalBattler.Character
 
         public void BasicAttack()
         {
-            Console.WriteLine("Monster attacks");
+            Console.WriteLine($"{Name} swipes their claws");
         }
 
         public void SpecialAttack()
         {
-            Console.WriteLine("Monster special attacks");
+            Console.WriteLine($"{Name} spits acid");
         }
 
         public void Defend()
         {
-            Console.WriteLine("Monster guards");
+            Console.WriteLine($"{Name} dodges");
         }
+
+        public string GetName() => Name;
+
+        public int GetCurrentHealth() => CurrentHealth;
     }
 }

@@ -3,22 +3,23 @@ using FinalBattler.Interfaces;
 
 namespace FinalBattler.Character
 {
-    public class Hero : Creations, IHero, IBattleActions
+    public class Hero : Creations, IHero, IBattlable
     {
-        public int Health { get; set; }
-        public int Power { get; set; }
-        public int Luck { get; set; }
-        public int Mana { get; set; }
-        public int CurrentXP { get; set; }
-        public int XPToNextLevel { get; set; }
-        public CombatClass CombatClass { get; set; }
-        public List<Item> Items { get; set; }
-        public List<Skill> Skills { get; set; }
-        public List<Spell> Spells { get; set; }
-        public List<Equipment> Equipment { get; set; }
+        private int Health { get; set; }
+        private int Power { get; set; }
+        private int Luck { get; set; }
+        private int Mana { get; set; }
+        private int CurrentXP { get; set; }
+        private int XPToNextLevel { get; set; }
+        private CombatClass CombatClass { get; set; }
+        private List<Item> Items { get; set; } = new List<Item>();
+        private List<Skill> Skills { get; set; } = new List<Skill>();
+        private List<Spell> Spells { get; set; } = new List<Spell>();
+        private List<Equipment> Equipment { get; set; } = new List<Equipment>();
 
-        public Hero()
+        public Hero(string name = "Hero")
         {
+            Name = name;
             Health = 1;
             Power = 1;
             Luck = 1;
@@ -127,7 +128,6 @@ namespace FinalBattler.Character
             return (BattleActions)Random.Shared.Next(3);
         }
 
-        public int GetCurrentHealth() => CurrentHealth;
         public void TakeDamage()
         {
             CurrentHealth--;
@@ -135,17 +135,29 @@ namespace FinalBattler.Character
 
         public void BasicAttack()
         {
-            Console.WriteLine($"{Name} attacks");
+            Console.WriteLine($"{Name} swings their weapon");
         }
 
         public void SpecialAttack()
         {
-            Console.WriteLine($"{Name} attacks specially");
+            Console.WriteLine($"{Name} unleashes a magical blast");
         }
 
         public void Defend()
         {
-            Console.WriteLine($"{Name} raises their guard");
+            Console.WriteLine($"{Name} raises their shield");
         }
+
+        public string GetName() => Name;
+
+        public int GetCurrentHealth() => CurrentHealth;
+    }
+
+    public enum CombatClass
+    {
+        None,
+        Warrior,
+        Wizard,
+        Rogue
     }
 }

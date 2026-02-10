@@ -8,7 +8,7 @@ public class Program
     {
         CombatManager combatManager = new CombatManager(new Hero(), new Monster());
 
-        combatManager.NewBattle();
+        Console.WriteLine($"WINNER: {combatManager.NewBattle().GetName()}");
     }
 }
 
